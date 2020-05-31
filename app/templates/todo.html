@@ -1,0 +1,60 @@
+{% set active_page = "Todo" %}
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="display-4">Todo list</h1>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/todo/add/" method="post">
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="title" placeholder="Title" required>
+                            </div>
+                            <button class="btn btn-primary" type="submit">
+                                Add
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in entries %}
+                    <tr>
+                        <td>{{ entry.id }}</td>
+                        <td>{% if entry.status %}<s>{% endif %}{{ entry.title }}{% if entry.status %}</s>{% endif %}</td>
+                        <td>
+                            <a class="btn btn-info btn-sm" href="/todo/update/{{ entry.id }}">
+                                {% if entry.status %} Uncheck {% else %} Check {% endif %}
+                            </a>
+                            <a class="btn btn-danger btn-sm" href="/todo/delete/{{ entry.id }}">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock%}

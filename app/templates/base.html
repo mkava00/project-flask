@@ -1,3 +1,8 @@
+{% set navigation_bar = [
+    ('/', 'index', 'Start'),
+    ('/todo/', 'todo', 'Todo'),
+] -%}
+{% set active_page = active_page|default('index') -%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,9 +23,11 @@
             <div class="row">
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/">Start page</a>
-                        </li>
+                        {% for href, id, caption in navigation_bar %}
+                            <li {% if caption == active_page %} class="nav-item active" {% else %} class="nav-item" {% endif%}>
+                                <a href="{{ href|e }}" class="nav-link">{{ caption|e }}</a>
+                            </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
