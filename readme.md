@@ -1,8 +1,12 @@
 # Start project
 
 1. Build docker image and run:
+First run:
 ```
-docker-compose up -d
+docker-compose up --build
+```
+After builded:
+```
 docker-compose up
 ```
 2. Visit:
